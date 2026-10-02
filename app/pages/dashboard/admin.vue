@@ -1,7 +1,7 @@
 <script setup Lang="ts">
 
 definePageMeta({
-    middleware: ["authentication", "adminAuth"]
+    middleware: ["admin-auth"]
 })
 
 const { clear: clearUserSession } = useUserSession()
