@@ -17,6 +17,7 @@ const registerForm = async () => {
             }
         })
         await refreshUserSession()
+        await navigateTo('/')
     }
     catch(error){
         console.log(error)
