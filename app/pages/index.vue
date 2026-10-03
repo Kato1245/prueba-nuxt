@@ -2,6 +2,7 @@
 
 const email = ref('')
 const password = ref('')
+const errorMesagge = ref('')
 
 const { fetch: refreshUserSession} = useUserSession()
 
@@ -27,10 +28,7 @@ const loginForm = async () => {
     }
     catch(error){
         console.log(error)
-        return {
-            statusCode: 500,
-            message: 'Error al iniciar sesion'
-        }
+        errorMesagge.value = error.data.message
     }
 }
 
@@ -47,6 +45,7 @@ const loginForm = async () => {
                 <input type="password" v-model="password" placeholder="Contraseña">
                 <button type="submit">Iniciar Sesion</button>
             </form>
+            <p v-if="errorMesagge" style="color: red;">{{ errorMesagge }}</p>
             <p>¿No tienes cuenta? <NuxtLink to="/register">Registrate</NuxtLink></p>
         </div>
     </div>

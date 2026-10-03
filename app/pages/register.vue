@@ -3,6 +3,7 @@
 const name = ref('')
 const email = ref('')
 const password = ref('')
+const errorMesagge = ref('')
 
 const { fetch: refreshUserSession} = useUserSession()
 
@@ -21,6 +22,7 @@ const registerForm = async () => {
     }
     catch(error){
         console.log(error)
+        errorMesagge.value = error.data.message
     }
 }
 
@@ -41,6 +43,8 @@ const registerForm = async () => {
                 <input type="password" v-model="password" placeholder="Contraseña">
 
                 <button type="submit">Registrarse</button>
+
+                <p v-if="errorMesagge" style="color: red;">{{ errorMesagge }}</p>
             </form>
             <p>¿Ya tienes cuenta? <NuxtLink to="/">Inicia sesion</NuxtLink></p>
         </div>

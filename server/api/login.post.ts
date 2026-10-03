@@ -7,7 +7,7 @@ export default eventHandler(async (event) => {
     if (!email || !password) {
         throw createError({
             statusCode: 400,
-            statusMessage: "Email y contraseña requeridos"
+            message: "Email y contraseña requeridos"
         })
     }
 
@@ -19,7 +19,7 @@ export default eventHandler(async (event) => {
         if(!user){
             throw createError({
                 statusCode: 401,
-                statusMessage: "Credenciales invalidas"
+                message: "Credenciales invalidas"
             })
         }
 
@@ -28,7 +28,7 @@ export default eventHandler(async (event) => {
         if(!comparePassword){
             throw createError({
                 statusCode: 401,
-                statusMessage: "Credenciales invalidas"  
+                message: "Credenciales invalidas"  
             })
         }
 
@@ -47,7 +47,7 @@ export default eventHandler(async (event) => {
 
         throw createError({
             statusCode: 500,
-            statusMessage: "Error al iniciar sesion"
+            message: "Error al iniciar sesion"
         })
     }
 })

@@ -7,7 +7,7 @@ export default eventHandler(async (event) =>{
     if(!name || !email || !password){
         throw createError({
             statusCode: 400,
-            statusMessage: "Todos los campos son requeridos"
+            message: "Todos los campos son requeridos"
         })
     }
 
@@ -17,7 +17,7 @@ export default eventHandler(async (event) =>{
         if(userExist.rows.length > 0){
             throw createError({
                 statusCode: 400,
-                statusMessage: "El correo ya esta registrado"
+                message: "El correo ya esta registrado"
             })
         }
 
@@ -35,8 +35,7 @@ export default eventHandler(async (event) =>{
         
         throw createError({
             statusCode: 500,
-            statusMessage: "Error al registrar el usuario"
+            message: "Error al registrar el usuario"
         })
     }
-    
 })
