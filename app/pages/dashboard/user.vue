@@ -14,8 +14,10 @@ const logout = async () => {
 </script>
 
 <template>
-    <div>
-        <h1>Pagina de Usuario Comun</h1>
-        <button @click="logout">Cerrar Sesion</button>
+    <div class="min-h-screen bg-gray-50 p-8">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-3xl font-bold text-gray-800 mb-6">Pagina de Usuario Comun</h1>
+            <button @click="logout" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-md transition-colors">Cerrar Sesion</button>
+        </div>
     </div>
 </template>

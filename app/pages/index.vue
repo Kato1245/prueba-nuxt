@@ -4,13 +4,13 @@ const email = ref('')
 const password = ref('')
 const errorMesagge = ref('')
 
-const { fetch: refreshUserSession} = useUserSession()
+const { fetch: refreshUserSession } = useUserSession()
 
 const loginForm = async () => {
-    try{
+    try {
         await $fetch('/api/login', {
             method: 'POST',
-            body:{
+            body: {
                 email: email.value,
                 password: password.value
             }
@@ -19,34 +19,40 @@ const loginForm = async () => {
 
         const { user } = await useUserSession()
 
-        if(user.value.role === "admin"){
+        if (user.value.role === "admin") {
             await navigateTo('/dashboard/admin')
         }
-        else{
+        else {
             await navigateTo('/dashboard/user')
         }
     }
-    catch(error){
+    catch (error) {
         console.log(error)
         errorMesagge.value = error.data.message
     }
 }
 
-</script>   
+</script>
 
 <template>
-    <div>
-        <div>
-            <h1>Iniciar Sesion</h1>
-            <form @submit.prevent="loginForm">
-                <label for="email">Email</label>
-                <input type="email" v-model="email" placeholder="Email">
-                <label for="password">Contraseña</label>
-                <input type="password" v-model="password" placeholder="Contraseña">
-                <button type="submit">Iniciar Sesion</button>
+    <div class="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+        <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+            <h1 class="text-2x1 font-bold text-center mb-6 text-gray-800">Iniciar Sesion</h1>
+            <form @submit.prevent="loginForm" class="space-y-4">
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <input type="email" v-model="email" placeholder="Email" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
+                    <input type="password" v-model="password" placeholder="Contraseña" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition-colors">Iniciar Sesion</button>
             </form>
-            <p v-if="errorMesagge" style="color: red;">{{ errorMesagge }}</p>
-            <p>¿No tienes cuenta? <NuxtLink to="/register">Registrate</NuxtLink></p>
+            <p v-if="errorMesagge" class="mt-4 text-sm text-red-600 bg-red-50 p-3 rounded-md">{{ errorMesagge }}</p>
+            <p>¿No tienes cuenta? <NuxtLink to="/register" class="text-blue-600 hover:underline font-medium">Registrate</NuxtLink>
+            </p>
         </div>
     </div>
 </template>

@@ -15,8 +15,8 @@ export default eventHandler(async (event) => {
         const result = await query("SELECT * FROM tbl_users WHERE email = $1", [email])
 
         const user = result.rows[0]
-        
-        if(!user){
+
+        if (!user) {
             throw createError({
                 statusCode: 401,
                 message: "Credenciales invalidas"
@@ -25,10 +25,10 @@ export default eventHandler(async (event) => {
 
         const comparePassword = await bcrypt.compare(password, user.password)
 
-        if(!comparePassword){
+        if (!comparePassword) {
             throw createError({
                 statusCode: 401,
-                message: "Credenciales invalidas"  
+                message: "Credenciales invalidas"
             })
         }
 

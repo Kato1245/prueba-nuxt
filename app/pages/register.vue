@@ -5,10 +5,10 @@ const email = ref('')
 const password = ref('')
 const errorMesagge = ref('')
 
-const { fetch: refreshUserSession} = useUserSession()
+const { fetch: refreshUserSession } = useUserSession()
 
 const registerForm = async () => {
-    try{
+    try {
         await $fetch('/api/register', {
             method: 'POST',
             body: {
@@ -20,7 +20,7 @@ const registerForm = async () => {
         await refreshUserSession()
         await navigateTo('/')
     }
-    catch(error){
+    catch (error) {
         console.log(error)
         errorMesagge.value = error.data.message
     }
@@ -29,24 +29,31 @@ const registerForm = async () => {
 </script>
 
 <template>
-    <div>
-        <div>
-            <h1>Registrarse</h1>
-            <form @submit.prevent="registerForm">
-                <label for="name">Nombre</label>
-                <input type="text" v-model="name" placeholder="Nombre">
+    <div class="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+        <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+            <h1 class="text-2x1 font-bold text-center mb-6 text-gray-800">Registrarse</h1>
+            <form @submit.prevent="registerForm" class="space-y-4">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
+                    <input type="text" v-model="name" placeholder="Nombre" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
 
-                <label for="email">Email</label>
-                <input type="email" v-model="email" placeholder="Email">
-                
-                <label for="password">Contraseña</label>
-                <input type="password" v-model="password" placeholder="Contraseña">
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <input type="email" v-model="email" placeholder="Email" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
 
-                <button type="submit">Registrarse</button>
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
+                    <input type="password" v-model="password" placeholder="Contraseña" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
 
-                <p v-if="errorMesagge" style="color: red;">{{ errorMesagge }}</p>
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition-colors">Registrarse</button>
+
+                <p v-if="errorMesagge" class="mt-4 text-sm text-red-600 bg-red-50 p-3 rounded-md">{{ errorMesagge }}</p>
             </form>
-            <p>¿Ya tienes cuenta? <NuxtLink to="/">Inicia sesion</NuxtLink></p>
+            <p>¿Ya tienes cuenta? <NuxtLink to="/" class="text-blue-600 hover:underline font-medium">Inicia sesion</NuxtLink>
+            </p>
         </div>
     </div>
 </template>
