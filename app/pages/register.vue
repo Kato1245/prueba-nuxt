@@ -5,24 +5,30 @@ const email = ref('')
 const password = ref('')
 const errorMesagge = ref('')
 
+const supabase = useSupabaseClient()
+
 const { fetch: refreshUserSession } = useUserSession()
 
 const registerForm = async () => {
     try {
-        await $fetch('/api/register', {
-            method: 'POST',
-            body: {
-                name: name.value,
-                email: email.value,
-                password: password.value
+        const { error } = await supabase.auth.signUp({
+            email: email.value,
+            password: password.value,
+            options: {
+                data:{
+                    name: name.value,
+                    role: 'user'
+                }
             }
         })
+        if (error) throw error
+        
         await refreshUserSession()
         await navigateTo('/')
     }
     catch (error) {
         console.log(error)
-        errorMesagge.value = error.data.message
+        errorMesagge.value = error.message
     }
 }
 

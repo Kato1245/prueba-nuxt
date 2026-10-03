@@ -4,10 +4,10 @@ definePageMeta({
     middleware: ["user-auth"]
 })
 
-const { clear: clearUserSession } = useUserSession()
+const supabase = useSupabaseClient()
 
 const logout = async () => {
-    await clearUserSession();
+    await supabase.auth.signOut()
     await navigateTo("/");
 }
 

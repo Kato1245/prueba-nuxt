@@ -4,22 +4,23 @@ const email = ref('')
 const password = ref('')
 const errorMesagge = ref('')
 
+const supabase = useSupabaseClient()
+const user = useSupabaseUser()
+
 const { fetch: refreshUserSession } = useUserSession()
 
 const loginForm = async () => {
     try {
-        await $fetch('/api/login', {
-            method: 'POST',
-            body: {
-                email: email.value,
-                password: password.value
-            }
+        const { error } = await supabase.auth.signInWithPassword({
+            email: email.value,
+            password: password.value
         })
-        await refreshUserSession()
 
-        const { user } = await useUserSession()
+        if (error) throw error
 
-        if (user.value.role === "admin") {
+        await refreshUserSession();
+
+        if (user.value.user_metadata.role === "admin") {
             await navigateTo('/dashboard/admin')
         }
         else {
@@ -28,7 +29,7 @@ const loginForm = async () => {
     }
     catch (error) {
         console.log(error)
-        errorMesagge.value = error.data.message
+        errorMesagge.value = error.message
     }
 }
 
